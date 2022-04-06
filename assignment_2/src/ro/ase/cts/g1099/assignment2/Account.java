@@ -23,7 +23,7 @@ public class Account {
 		return loanValue * bankRate;
 	}
 	
-	public void setValue(double loanValue) throws Exception {
+	public void setValue(double loanValue) {
 		if(loanValue < 0)
 			throw new InvalidLoanValueException();
 		else
@@ -56,7 +56,7 @@ public class Account {
 		return	totalFee;
 	}
 
-	public Account(double loanValue, double bankRate, int bankAccountType) throws Exception {
+	public Account(double loanValue, double bankRate, int bankAccountType)  {
 		if(loanValue < 0)
 			throw new InvalidLoanValueException();
 		else
