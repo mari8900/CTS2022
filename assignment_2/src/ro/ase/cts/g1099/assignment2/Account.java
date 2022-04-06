@@ -3,8 +3,9 @@ package ro.ase.cts.g1099.assignment2;
 import ro.ase.cts.g1099.assignment2.classes.BankAccountType;
 import ro.ase.cts.g1099.assignment2.classes.Loan;
 import ro.ase.cts.g1099.assignment2.exceptions.InvalidInputValueException;
+import ro.ase.cts.g1099.assignment2.interfaces.MonthlyRate;
 
-public class Account {
+public class Account implements MonthlyRate {
 	
 	Loan loan;	
 	public int daysActivePerYear;
@@ -28,24 +29,13 @@ public class Account {
     }
 	
 	public double getAccountLoanValue() {
-		System.out.println("The loan value is " + loan.getLoanValue());
 		return loan.getLoanValue();
 	}
 	
 	public double getAccountRate() {
-		System.out.println("The rate is " + loan.getBankRate());
 		return loan.getBankRate();
 	}
-	
-	//must have method - the lead has requested it in all classes
-	public double getMonthlyRate() {
-		return loan.getLoanValue() * loan.getBankRate();
-	}
-	
-	public String to_string() {
-		return "Loan: " + loan.getLoanValue() +"; rate: "+ loan.getBankRate() +"; days active:" + daysActivePerYear +"; Type: " + bankAccountType +";";
-	}
-	
+		
 	public void print() {
 		int vb = 10;
 		System.out.println("This is an account");
@@ -74,6 +64,10 @@ public class Account {
 				+ bankAccountType;
 	}
 
-	
+	@Override
+	public double getMonthlyRate() {
+		return loan.getLoanValue() * loan.getBankRate();
+	}
 
+	
 }
