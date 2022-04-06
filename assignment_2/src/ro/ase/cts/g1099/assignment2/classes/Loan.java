@@ -32,4 +32,12 @@ public class Loan {
 	public double getMonthlyRate() {
 		return loanValue * bankRate;
 	}
+
+	@Override
+	public String toString() {
+		return "loan that has a value of " + this.loanValue + " at a bank rate of " + this.bankRate;
+	}
+
+	
+	
 }

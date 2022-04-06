@@ -10,7 +10,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		Account account = new Account(new Loan(1000, 0.3), 1, BankAccountType.PREMIUM);
 		System.out.println(account.to_string());
-		
+		System.out.println("---------------------------------------------");
+		System.out.println(account.toString());
 	}
 
 }

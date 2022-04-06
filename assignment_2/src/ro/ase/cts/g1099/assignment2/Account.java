@@ -68,6 +68,12 @@ public class Account {
 		return	interest;
 	}
 
+	@Override
+	public String toString() {
+		return "This account took a " + loan + ", number of active days is " + daysActivePerYear + ", and the bank account type is "
+				+ bankAccountType;
+	}
+
 	
 
 }
