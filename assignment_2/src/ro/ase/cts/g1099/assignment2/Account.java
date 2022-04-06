@@ -1,39 +1,49 @@
 package ro.ase.cts.g1099.assignment2;
 
-import ro.ase.cts.g1099.assignment2.exceptions.InvalidLoanValueException;
+import ro.ase.cts.g1099.assignment2.classes.BankAccountType;
+import ro.ase.cts.g1099.assignment2.classes.Loan;
+import ro.ase.cts.g1099.assignment2.exceptions.InvalidInputValueException;
 
 public class Account {
 	
-	public double	loanValue, bankRate;	
-	public int	daysActivePerYear, bankAccountType;
-	public static final int	STANDARD = 0, BUDGET = 1, PREMIUM = 2, SUPER_PREMIUM = 3;
+	Loan loan;	
+	public int daysActivePerYear;
+	BankAccountType bankAccountType;
 	
-	public double loan() {
-		System.out.println("The loan value is " + this.loanValue);
-		return loanValue;
+	public Account(Loan loan, int daysActive, BankAccountType bankAccountType)  {
+		if(daysActive < 1) {
+			throw new InvalidInputValueException("Account must be active for at least 1 day");
+		}
+		this.setLoan(loan);
+		this.daysActivePerYear = daysActive;
+		this.bankAccountType = bankAccountType;
 	}
 	
-	public double getRate() {
-		System.out.println("The rate is " + bankRate);
-		return this.bankRate;
+	public void setLoan(Loan loan) {
+        if(loan == null) {
+            this.loan = new Loan();
+        } else {
+            this.loan = loan;
+        }
+    }
+	
+	public double getAccountLoanValue() {
+		System.out.println("The loan value is " + loan.getLoanValue());
+		return loan.getLoanValue();
+	}
+	
+	public double getAccountRate() {
+		System.out.println("The rate is " + loan.getBankRate());
+		return loan.getBankRate();
 	}
 	
 	//must have method - the lead has requested it in all classes
 	public double getMonthlyRate() {
-		return loanValue * bankRate;
-	}
-	
-	public void setValue(double loanValue) {
-		if(loanValue < 0)
-			throw new InvalidLoanValueException();
-		else
-		{
-			this.loanValue = loanValue;
-		}
+		return loan.getLoanValue() * loan.getBankRate();
 	}
 	
 	public String to_string() {
-		return "Loan: " + this.loanValue +"; rate: "+ this.bankRate +"; days active:" + daysActivePerYear +"; Type: " + bankAccountType +";";
+		return "Loan: " + loan.getLoanValue() +"; rate: "+ loan.getBankRate() +"; days active:" + daysActivePerYear +"; Type: " + bankAccountType +";";
 	}
 	
 	public void print() {
@@ -46,25 +56,18 @@ public class Account {
 		double interest = 0.0;
 		Account	account;
 		int timePeriod = 365;
+		double brokerFee = 0.0125;
 		
 		for	(int i = 0; i < accounts.length; i++) {
 			account = accounts[i];
-			if(account.bankAccountType == Account.PREMIUM || account.bankAccountType == Account.SUPER_PREMIUM)	
-				interest += .0125 *	(//	1.25% broker's fee
-						account.loanValue * Math.pow(account.bankRate, (account.daysActivePerYear / timePeriod)) - account.loanValue);	//	interest-principal
+			if(account.bankAccountType == BankAccountType.PREMIUM || account.bankAccountType == BankAccountType.SUPER_PREMIUM)	
+			
+				interest += brokerFee *	(account.getAccountLoanValue() * Math.pow
+						(account.getAccountRate(), (account.daysActivePerYear / timePeriod)) - account.getAccountLoanValue());	//	interest-principal
 		}
 		return	interest;
 	}
 
-	public Account(double loanValue, double bankRate, int bankAccountType)  {
-		if(loanValue < 0)
-			throw new InvalidLoanValueException();
-		else
-		{
-			this.loanValue = loanValue;
-		}
-		this.bankRate = bankRate;
-		this.bankAccountType = bankAccountType;
-	}
+	
 
 }
