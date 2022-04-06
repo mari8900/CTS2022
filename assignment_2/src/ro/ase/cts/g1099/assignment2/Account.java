@@ -1,5 +1,7 @@
 package ro.ase.cts.g1099.assignment2;
 
+import ro.ase.cts.g1099.assignment2.exceptions.InvalidLoanValueException;
+
 public class Account {
 	
 	public double	loanValue, bankRate;	
@@ -23,7 +25,7 @@ public class Account {
 	
 	public void setValue(double loanValue) throws Exception {
 		if(loanValue < 0)
-			throw new Exception();
+			throw new InvalidLoanValueException();
 		else
 		{
 			this.loanValue = loanValue;
@@ -56,7 +58,7 @@ public class Account {
 
 	public Account(double loanValue, double bankRate, int bankAccountType) throws Exception {
 		if(loanValue < 0)
-			throw new Exception();
+			throw new InvalidLoanValueException();
 		else
 		{
 			this.loanValue = loanValue;
