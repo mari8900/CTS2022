@@ -41,19 +41,19 @@ public class Account {
 		System.out.println("This is an account");
 	}
 
-	public static double calculate(Account[] accounts)
+	public static double determineInterest(Account[] accounts)
 	{
-		double totalFee = 0.0;
+		double interest = 0.0;
 		Account	account;
-		int temp = 365;
+		int timePeriod = 365;
 		
 		for	(int i = 0; i < accounts.length; i++) {
 			account = accounts[i];
 			if(account.bankAccountType == Account.PREMIUM || account.bankAccountType == Account.SUPER_PREMIUM)	
-				totalFee += .0125 *	(//	1.25% broker's fee
-						account.loanValue * Math.pow(account.bankRate, (account.daysActivePerYear / 365)) - account.loanValue);	//	interest-principal
+				interest += .0125 *	(//	1.25% broker's fee
+						account.loanValue * Math.pow(account.bankRate, (account.daysActivePerYear / timePeriod)) - account.loanValue);	//	interest-principal
 		}
-		return	totalFee;
+		return	interest;
 	}
 
 	public Account(double loanValue, double bankRate, int bankAccountType)  {
