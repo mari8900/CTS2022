@@ -50,7 +50,7 @@ public class Account implements MonthlyRate {
 				interest += brokerFee *	(account.getAccountLoanValue() * Math.pow
 						(account.getAccountRate(), (account.daysActivePerYear / timePeriod)) - account.getAccountLoanValue());	//	interest-principal
 		}
-		return	interest;
+		return interest;
 	}
 
 	@Override
