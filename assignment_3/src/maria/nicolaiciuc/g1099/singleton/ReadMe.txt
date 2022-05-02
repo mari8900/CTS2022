@@ -1,4 +1,13 @@
-Postal Appointments Application - mobile application for creating pick-up appointments for parcels based on
-their tracking number
+Bachelor paper topic:
+    Postal Appointments Application
 
-We need a unique management of shared preferences for all the users interacting with the application
+Description of the problem:
+    We need a unique management of shared preferences for all the users interacting with the application
+
+Advantages:
+    - unique instance of sharedPreferences 
+    - easier management of access to the data
+
+Disadvantages:
+    - performance of the app may be affected by the presence of only one instance
+    - synchronized could cause issues if multi threading is used
