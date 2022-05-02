@@ -10,4 +10,4 @@ Advantages:
 
 Disadvantages:
     - performance of the app may be affected by the presence of only one instance
-    - synchronized could cause issues if multi threading is used READ ME
+    - synchronized could cause issues if multi threading is used
