@@ -1,6 +1,9 @@
 package maria.nicolaiciuc.g1099.factory;
 
 public class ApptWithSpecifiedHour extends AppointmentInterface {
+	
+	public static final float DEFAULT_HOUR = 10.35f;
+	
 	private String fullName;
 	private long trackingNumber;
 	private String date;

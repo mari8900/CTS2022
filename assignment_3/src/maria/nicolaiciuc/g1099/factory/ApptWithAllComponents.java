@@ -3,6 +3,9 @@ package maria.nicolaiciuc.g1099.factory;
 import maria.nicolaiciuc.g1099.builder.PostalOffices;
 
 public class ApptWithAllComponents extends AppointmentInterface {
+	
+	public static final PostalOffices DEFAULT_PO = PostalOffices.PO1;
+	
 	private String fullName;
 	private long trackingNumber;
 	private String date;

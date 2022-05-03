@@ -1,6 +1,5 @@
 package maria.nicolaiciuc.g1099.factory;
 
-import maria.nicolaiciuc.g1099.builder.PostalOffices;
 
 public class AppointmentFactory {
 	
@@ -12,13 +11,10 @@ public class AppointmentFactory {
 				appointment = new ApptBasic(name, number, date);
 				break;
 			case basicPlusHour:
-				float hour = 15.35f;
-				appointment = new ApptWithSpecifiedHour(name, number, date, hour);
+				appointment = new ApptWithSpecifiedHour(name, number, date, ApptWithSpecifiedHour.DEFAULT_HOUR);
 				break;
 			case basicPlusHourAndPostalOffice:
-				float hour1 = 17.23f;
-				PostalOffices po = PostalOffices.PO1;
-				appointment = new ApptWithAllComponents(name, number, date, hour1, po);
+				appointment = new ApptWithAllComponents(name, number, date, ApptWithSpecifiedHour.DEFAULT_HOUR, ApptWithAllComponents.DEFAULT_PO);
 				break;
 			default:
 				throw new UnsupportedOperationException();
