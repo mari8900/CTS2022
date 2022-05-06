@@ -13,6 +13,7 @@ public class TestPatternDecorator {
 		AbstractAppointment appointmentDecorated = new DecoratorAppointmentCuloare(appointment);
 		appointmentDecorated.create();
 		appointmentDecorated.update();
+		
 	}
 
 }
