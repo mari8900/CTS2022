@@ -4,7 +4,7 @@ import nicolaiciuc.maria.g1099.strategy.DataSenderInterface;
 
 public class WeatherMonitoringSystem extends AbstractWeatherStation {
 	
-	private String temperature;
+	private double temperature;
 	private double windSpeed;
 	private int uvLevel;
 	private double groundHumidity;
@@ -16,7 +16,7 @@ public class WeatherMonitoringSystem extends AbstractWeatherStation {
 		super();
 	}
 
-	public WeatherMonitoringSystem(String temperature, double windSpeed, int uvLevel, double groundHumidity,
+	public WeatherMonitoringSystem(double temperature, double windSpeed, int uvLevel, double groundHumidity,
 			double airHumidity) {
 		super();
 		this.temperature = temperature;
@@ -26,7 +26,7 @@ public class WeatherMonitoringSystem extends AbstractWeatherStation {
 		this.airHumidity = airHumidity;
 	}
 
-	public String getTemperature() {
+	public double getTemperature() {
 		return temperature;
 	}
 
