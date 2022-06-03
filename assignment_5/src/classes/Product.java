@@ -2,7 +2,8 @@ package classes;
 
 import java.util.ArrayList;
 
-import exceptions.InvalidInputValueForArray;
+import exceptions.NoValuesForArray;
+import exceptions.SameLengthArrayAndMaxProductsException;
 import exceptions.InvalidInputValueForWeek;
 
 /*
@@ -41,14 +42,14 @@ public class Product {
 				this.weeklySoldItems.add(n);
 			}
 		} else
-			throw new InvalidInputValueForArray();
+			throw new NoValuesForArray();
 	}
 	
 	public void setSales(ArrayList<Integer> soldItems) {
 		if(soldItems != null) {
 			this.weeklySoldItems = soldItems;
 		} else 
-			throw new InvalidInputValueForArray();
+			throw new NoValuesForArray();
 	}
 
 	public String getName() {
@@ -60,14 +61,17 @@ public class Product {
 	}
 	
 	public void addWeek(int soldItems) {
-		if(soldItems >= 0) {
+		if(soldItems >= 0 && soldItems <= 1000) {
 			weeklySoldItems.add(soldItems);
 		} else
 			throw new InvalidInputValueForWeek();
 	}
 	
 	public int getSoldItems(int i) {
-		return weeklySoldItems.get(i);
+		if(weeklySoldItems != null) {
+			return weeklySoldItems.get(i);
+		} else
+			throw new NoValuesForArray();
 	}
 	
 	/*
@@ -77,12 +81,21 @@ public class Product {
 	 * 
 	 */
 	public int getNoWeeksAboveLimit(int minLimit){
+		
 		int noWeeks = 0;
-		for(int n: weeklySoldItems) {
-			if(n > minLimit)
-				noWeeks++;
+		if(weeklySoldItems != null || weeklySoldItems.size() != 0) {
+			for(int n: weeklySoldItems) {
+				if(n > minLimit)
+					noWeeks++;
+			}
+		} else {
+			throw new NoValuesForArray();
 		}
-		return noWeeks;
+		
+		if(noWeeks > weeklySoldItems.size()) {
+			throw new SameLengthArrayAndMaxProductsException();
+		} else
+			return noWeeks;
 	}
 	
 	/*

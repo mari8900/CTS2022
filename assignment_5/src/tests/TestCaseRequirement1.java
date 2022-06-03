@@ -12,8 +12,16 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import classes.Product;
-import exceptions.InvalidInputValueForArray;
-import exceptions.InvalidInputValueForWeek;
+import exceptions.NoValuesForArray;
+
+
+
+//at least 2 Error Condition tests for each constructor
+
+//1 Reference test for the constructor that receives the ArrayList
+
+//1 Reference test for setSales()
+
 
 public class TestCaseRequirement1 {
 	
@@ -42,12 +50,6 @@ public class TestCaseRequirement1 {
 
 	@After
 	public void tearDown() throws Exception {
-	}
-	
-	@Ignore
-	@Test
-	public void test() {
-		fail("Not yet implemented");
 	}
 	
 	@Test
@@ -101,12 +103,19 @@ public class TestCaseRequirement1 {
 		}
 	}
 	
-	@Test(expected = InvalidInputValueForArray.class)
-	public void testSetArrayErrorCondition() {
+	@Test(expected = NoValuesForArray.class)
+	public void testConstructorExistenceNullReference() {
+		
+		ArrayList<Integer> arrayInvalid = null;
+		Product product = new Product(NAME, PRICE, arrayInvalid);
+		product.getWeeksIndexWithMaxSales();
+	}
+	
+	@Test(expected = NoValuesForArray.class)
+	public void testSetSalesExistenceNullReference() {
 		
 		ArrayList<Integer> arrayInvalid = null;
 		productWithAllParameters.setSales(arrayInvalid);
+		productWithAllParameters.getWeeksIndexWithMaxSales();
 	}
-	
-	
 }

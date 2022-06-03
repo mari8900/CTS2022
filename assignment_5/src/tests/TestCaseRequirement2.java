@@ -13,14 +13,26 @@ import org.junit.Test;
 
 import classes.Product;
 import exceptions.InvalidInputValueForWeek;
+import exceptions.NoValuesForArray;
+import exceptions.SameLengthArrayAndMaxProductsException;
+
+//1 Range test to verify a condition for which the function being tested generates an exception (for each method);
+
+//2 tests to check extreme limits (Boundary) for each method;
+
+//2 Cardinality tests for getNoWeeksAboveLimit();
+
+//only for getNoWeeksAboveLimit() a Performance/Time test that will verify that the function return a result under 3 seconds for an array with 1000 weeks
+
 
 public class TestCaseRequirement2 {
 	
 	public static final String NAME = "USB";
 	public static final float PRICE = 69.55f;
 	public static final ArrayList<Integer> WEEKLY_SOLD_ITEMS = new ArrayList<>();
-	Product productWithNameAndPrice;
-	Product productWithAllParameters;
+	public static final int MIN_QUANTITY_PRODUCTS_SOLD = 0;
+	public static final int MAX_QUANTITY_PRODUCTS_SOLD = 1000;
+	Product product;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -35,31 +47,24 @@ public class TestCaseRequirement2 {
 
 	@Before
 	public void setUp() throws Exception {
-		productWithNameAndPrice = new Product(NAME, PRICE);
-		productWithAllParameters = new Product(NAME, PRICE, WEEKLY_SOLD_ITEMS);
+		product = new Product(NAME, PRICE, WEEKLY_SOLD_ITEMS);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
 	
-	@Ignore
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-	
 	@Test
 	public void testAddWeekRight() {
 		
-		int weekToAdd = productWithAllParameters.getSoldItems(1) + 1;
+		int weekToAdd = product.getSoldItems(1) + 1;
 		ArrayList<Integer> productsSoldByWeeks = new ArrayList<>();
 		productsSoldByWeeks.add(10);
 		productsSoldByWeeks.add(20);
 		productsSoldByWeeks.add(30);
-		productWithAllParameters.setSales(productsSoldByWeeks);
-		productWithAllParameters.addWeek(weekToAdd);
-		assertEquals(weekToAdd, productWithAllParameters.getSoldItems(productsSoldByWeeks.size() - 1));
+		product.setSales(productsSoldByWeeks);
+		product.addWeek(weekToAdd);
+		assertEquals(weekToAdd, product.getSoldItems(productsSoldByWeeks.size() - 1));
 	}
 	
 	@Test
@@ -96,9 +101,151 @@ public class TestCaseRequirement2 {
 	}
 	
 	@Test(expected = InvalidInputValueForWeek.class)
-	public void testAddSoldProductsOfWeekErrorCondition() {
+	public void testAddWeekErrorCondition() {
 		
 		int numberOfProductsSoldInvalid = -1;
-		productWithAllParameters.addWeek(numberOfProductsSoldInvalid);
+		product.addWeek(numberOfProductsSoldInvalid);
 	}
+	
+	@Test(expected = NoValuesForArray.class)
+	public void testGetSoldItemsExistenceNullReference() {
+		
+		ArrayList<Integer> productsSold = null;
+		product.setSales(productsSold);
+		product.getSoldItems(productsSold.size() - 1);
+	}
+	
+	@Test(expected = InvalidInputValueForWeek.class)
+	public void testAddWeekRangeMaxValue() {
+		
+		int productsSoldNewWeek = Integer.MAX_VALUE;
+		product.addWeek(productsSoldNewWeek);
+	}
+	
+	@Ignore
+	@Test(expected = NoValuesForArray.class)
+	public void testGetSoldItemsRange0() {
+		
+		ArrayList<Integer> newArray = new ArrayList<>();
+		product.setSales(newArray);
+	}
+	
+	@Ignore
+	@Test(expected = SameLengthArrayAndMaxProductsException.class)
+	public void testGetNoWeeksAboveLimitRangeMaxValue() {
+		
+		ArrayList<Integer> productsSold = new ArrayList<>();
+		productsSold.add(9);
+		productsSold.add(7);
+		productsSold.add(5);
+		productsSold.add(10);
+		productsSold.add(15);
+		productsSold.add(25);
+		productsSold.add(35);
+		productsSold.add(45);
+		int maxWeeks = productsSold.size();
+		int minLimit = 10;
+		product.setSales(productsSold);
+		
+		assertNotEquals(maxWeeks, product.getNoWeeksAboveLimit(minLimit));
+	}
+	
+	@Test
+	public void testAddWeekLowerBoundary() {
+		
+		int productsSoldThisWeek = MIN_QUANTITY_PRODUCTS_SOLD;
+		product.addWeek(productsSoldThisWeek);
+		assertEquals(productsSoldThisWeek, product.getSoldItems(3));
+	}
+	
+	@Test
+	public void testAddWeekUpperBoundary() {
+		
+		int productsSoldThisWeek = MAX_QUANTITY_PRODUCTS_SOLD;
+		product.addWeek(productsSoldThisWeek);
+		assertEquals(productsSoldThisWeek, product.getSoldItems(3));
+	}
+	
+	@Ignore
+	@Test
+	public void testGetSoldItemsLowerBoundary() {
+		
+	}
+	
+	@Ignore
+	@Test
+	public void testGetSoldItemsUpperBoundary() {
+		
+		int maxSizeArray = Integer.MAX_VALUE;
+		ArrayList<Integer> soldProducts = new ArrayList<>(maxSizeArray);
+		product.setSales(soldProducts);
+	}
+	
+	@Test
+	public void testGetNoWeeksAboveLimitLowerBoundary() {
+		
+		int minLimit = 30;
+		int minNoOfProducts = 0;
+		int expectedNoOfProducts = product.getNoWeeksAboveLimit(minLimit);
+		assertEquals(expectedNoOfProducts, minNoOfProducts);
+	}
+	
+	@Test
+	public void testGetNoWeeksAboveLimitUpperBoundary() {
+		
+		int minLimit = 9;
+		int maxNoOfProducts = WEEKLY_SOLD_ITEMS.size();
+		int expectedNoOfProducts = product.getNoWeeksAboveLimit(minLimit);
+		assertEquals(expectedNoOfProducts, maxNoOfProducts);
+	}
+	
+	@Ignore
+	@Test(expected = NoValuesForArray.class)
+	public void testGetNoWeeksAboveLimitCardinalityZero() {
+		
+		ArrayList<Integer> sales = new ArrayList<>();
+		product.setSales(sales);
+		product.getNoWeeksAboveLimit(MIN_QUANTITY_PRODUCTS_SOLD);
+	}
+	
+	@Test
+	public void testGetNoWeeksAboveLimitCardinalityOne() {
+		ArrayList<Integer> sales = new ArrayList<>();
+		sales.add(10);
+		product.setSales(sales);
+		
+		int expectedQuantityOfProductSold = 10;
+		int actualQuantityOfProductSold = product.getSoldItems(0);
+		
+		assertEquals(expectedQuantityOfProductSold, actualQuantityOfProductSold);
+	}
+
+	@Test
+	public void testGetMinGradeOrderingAscending() {
+		ArrayList<Integer> sales = new ArrayList<>();
+		for(int quantity = 5; quantity <= 15; quantity++) {
+			sales.add(quantity);
+		}
+		product.setSales(sales);
+		
+		int expectedMinQuantity = 5;
+		int actualMinQuantity = product.getSoldItems(0);
+		
+		assertEquals(expectedMinQuantity, actualMinQuantity);
+	}
+	
+	@Test
+	public void testGetMinGradeOrderingDescending() {
+		ArrayList<Integer> sales = new ArrayList<>();
+		for(int quantity = 15; quantity >= 5; quantity--) {
+			sales.add(quantity);
+		}
+		product.setSales(sales);
+		
+		int expectedMaxQuantity = 15;
+		int actualMaxQuantity = product.getSoldItems(0);
+		
+		assertEquals(expectedMaxQuantity, actualMaxQuantity);
+	}
+
 }

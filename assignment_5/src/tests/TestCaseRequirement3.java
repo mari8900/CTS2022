@@ -13,13 +13,19 @@ import org.junit.Test;
 
 import classes.Product;
 
+
+//1 Cross-Check test;
+
+//1 Inverse Relationship test;
+
+//2 tests of your choice to verify other criteria (other than the above) for any method.
+
 public class TestCaseRequirement3 {
 	
 	public static final String NAME = "USB";
 	public static final float PRICE = 69.55f;
 	public static final ArrayList<Integer> WEEKLY_SOLD_ITEMS = new ArrayList<>();
-	Product productWithNameAndPrice;
-	Product productWithAllParameters;
+	Product product;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -34,18 +40,11 @@ public class TestCaseRequirement3 {
 
 	@Before
 	public void setUp() throws Exception {
-		productWithNameAndPrice = new Product(NAME, PRICE);
-		productWithAllParameters = new Product(NAME, PRICE, WEEKLY_SOLD_ITEMS);
+		product = new Product(NAME, PRICE, WEEKLY_SOLD_ITEMS);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-	}
-	
-	@Ignore
-	@Test
-	public void test() {
-		fail("Not yet implemented");
 	}
 	
 	@Test
@@ -91,4 +90,14 @@ public class TestCaseRequirement3 {
 		expectedIndexes.add(5);
 		assertEquals(maxWeeks, expectedIndexes);
 	}
+	
+	@Test
+	public void testGetPercentOfBadWeeksInverseRelation() {
+		int expectedPercent = (int)3.33f;
+		int otherPercent = (int) 50.0f;
+		int minLimit = 15;
+		
+		assertNotEquals(otherPercent, product.getPercentOfBadWeeks(minLimit));
+	}
+
 }
