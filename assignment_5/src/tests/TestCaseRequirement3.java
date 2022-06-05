@@ -14,12 +14,6 @@ import org.junit.Test;
 import classes.Product;
 
 
-//1 Cross-Check test;
-
-//1 Inverse Relationship test;
-
-//2 tests of your choice to verify other criteria (other than the above) for any method.
-
 public class TestCaseRequirement3 {
 	
 	public static final String NAME = "USB";

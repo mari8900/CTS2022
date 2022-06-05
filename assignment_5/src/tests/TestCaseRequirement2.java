@@ -16,14 +16,6 @@ import exceptions.InvalidInputValueForWeek;
 import exceptions.NoValuesForArray;
 import exceptions.SameLengthArrayAndMaxProductsException;
 
-//1 Range test to verify a condition for which the function being tested generates an exception (for each method);
-
-//2 tests to check extreme limits (Boundary) for each method;
-
-//2 Cardinality tests for getNoWeeksAboveLimit();
-
-//only for getNoWeeksAboveLimit() a Performance/Time test that will verify that the function return a result under 3 seconds for an array with 1000 weeks
-
 
 public class TestCaseRequirement2 {
 	

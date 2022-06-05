@@ -15,14 +15,6 @@ import classes.Product;
 import exceptions.NoValuesForArray;
 
 
-
-//at least 2 Error Condition tests for each constructor
-
-//1 Reference test for the constructor that receives the ArrayList
-
-//1 Reference test for setSales()
-
-
 public class TestCaseRequirement1 {
 	
 	public static final String NAME = "USB";
